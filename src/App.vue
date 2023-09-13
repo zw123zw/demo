@@ -9,6 +9,7 @@
       :zoom="zoom"
       @ready="ready"
       @load="load"
+      :scroll-wheel-zoom="true"
     ></baidu-map>
   </div>
 </template>
