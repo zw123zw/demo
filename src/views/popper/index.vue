@@ -1,9 +1,15 @@
 <template>
   <div class="popper-container">
-    <button id="button" aria-describedby="tooltip" ref="btnRef">
+    <button
+      id="button"
+      aria-describedby="tooltip"
+      ref="btnRef"
+      @mouseenter="show"
+      @mouseleave="hide"
+    >
       I'm a button
     </button>
-    <div id="tooltip" role="tooltip" ref="tooltipRef">
+    <div id="tooltip" role="tooltip" ref="tooltipRef" v-show="isShow">
       I'm a tooltip
       <div id="arrow" data-popper-arrow></div>
     </div>
@@ -11,16 +17,44 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
-import { createPopper } from "@popperjs/core";
+import { ref, onMounted, nextTick } from "vue";
+import { createPopper, popperGenerator } from "@popperjs/core";
 import preventOverflow from "@popperjs/core/lib/modifiers/preventOverflow.js";
 import flip from "@popperjs/core/lib/modifiers/flip.js";
+import type { Options } from "@popperjs/core";
 
 const btnRef = ref<any>(null);
 const tooltipRef = ref<any>(null);
+const popperInstance = ref<any>(null);
+const isShow = ref<boolean>(false);
+const show = () => {
+  isShow.value = true;
+  popperInstance.value.setOptions((options: Options) => ({
+    ...options,
+    modifiers: [
+      ...options.modifiers,
+      { name: "eventListeners", enabled: true },
+    ],
+  }));
+
+  console.log(popperInstance.value);
+  popperInstance.value.update().then((res: any) => {
+    console.log(res);
+  })
+};
+const hide = () => {
+  isShow.value = false;
+  popperInstance.value.setOptions((options: Options) => ({
+    ...options,
+    modifiers: [
+      ...options.modifiers,
+      { name: "eventListeners", enabled: false },
+    ],
+  }));
+};
 
 onMounted(() => {
-  createPopper(btnRef.value, tooltipRef.value, {
+  popperInstance.value = createPopper(btnRef.value, tooltipRef.value, {
     placement: "top",
     modifiers: [
       preventOverflow,
@@ -32,6 +66,8 @@ onMounted(() => {
         },
       },
     ],
+    strategy: "fixed",
+    onFirstUpdate: state => console.log('Popper positioned on', state.placement),
   });
 });
 </script>
