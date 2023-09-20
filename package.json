@@ -9,8 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "path": "^0.12.7",
+    "sass": "^1.67.0",
     "vue": "^3.3.4",
-    "vue-baidu-map-3x": "^1.0.35"
+    "vue-baidu-map-3x": "^1.0.35",
+    "vue-router": "^4.2.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
