@@ -33,7 +33,8 @@ const show = () => {
     ...options,
     modifiers: [
       ...options.modifiers,
-      { name: "eventListeners", enabled: true },
+      { name: "eventListeners", enabled: true, fn: (res:any) => {console.log(res)}
+       },
     ],
   }));
 

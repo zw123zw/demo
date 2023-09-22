@@ -11,6 +11,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "Poppe",
     component: () => import("@/views/popper"),
   },
+  {
+    path: "/tweenjs",
+    name: "Tweenjs",
+    component: () => import("@/views/tweenjs"),
+  },
 ];
 
 const router = createRouter({
