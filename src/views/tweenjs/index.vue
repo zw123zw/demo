@@ -15,8 +15,8 @@ import TWEEN from "@tweenjs/tween.js";
 
 const pointsList = ref<any>([]);
 const points = computed(() => {
-  console.log(pointsList.value.slice(1, 50));
-  return pointsList.value.join(",");
+  // console.log(pointsList.value.slice(1, 50));
+  return [];
 });
 
 const position = ref<any>({
@@ -25,7 +25,7 @@ const position = ref<any>({
   z: 0,
   w: 50,
   h: 50,
-  alpha: 0,
+  alpha: 1,
   scale: 1,
 });
 const style1 = computed(() => {
@@ -44,53 +44,34 @@ function animate() {
 }
 
 onMounted(() => {
-  const action1 = new TWEEN.Tween(position.value)
+  // 曲线-x,y轴的运动速率不一致
+  const action1 = new TWEEN.Tween(position.value).to(
+    {
+      x: 300,
+    },
+    1000
+  );
+
+  const action11 = new TWEEN.Tween(position.value)
     .to(
       {
-        x: 300,
-        y: [100, 300, 100, 300, 100],
-        z: 0,
-        w: 100,
-        h: 100,
-        alpha: 1,
-        scale: 1,
-      },
-      2000
-    )
-    .easing(TWEEN.Easing.Exponential.In)
-    .onUpdate((value: any) => {
-      pointsList.value.push(value.x);
-    });
-  const action2 = new TWEEN.Tween(position.value)
-    .to(
-      {
-        x: 500,
-        y: 0,
-        z: 0,
-        w: 50,
-        h: 50,
-        alpha: 0,
+        y: 400,
       },
       1000
     )
-    .easing(TWEEN.Easing.Exponential.Out)
-    .delay(1000)
-    .onUpdate((value: any) => {
-      pointsList.value.push(value.x);
-    });
-  const action3 = new TWEEN.Tween(position.value)
+    .easing(TWEEN.Easing.Cubic.In);
+
+  const action2 = new TWEEN.Tween(position.value)
     .to(
       {
-        scale: 0.5,
+        w: 60,
+        h: 60,
       },
-      3000
+      300
     )
-    .easing(TWEEN.Easing.Exponential.Out)
-    .onUpdate((value: any) => {
-      pointsList.value.push(value.x);
-    });
-  action1.chain(action2, action3);
-  action1.start();
+
+  action2.chain(action11, action1);
+  action2.start();
   animate();
 });
 </script>
