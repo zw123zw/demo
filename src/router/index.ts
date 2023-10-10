@@ -16,6 +16,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "Tweenjs",
     component: () => import("@/views/tweenjs"),
   },
+  {
+    path: "/svg",
+    name: "Svg",
+    component: () => import("@/views/svg"),
+  },
 ];
 
 const router = createRouter({
