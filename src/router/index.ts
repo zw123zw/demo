@@ -21,6 +21,16 @@ const routes: Array<RouteRecordRaw> = [
     name: "Svg",
     component: () => import("@/views/svg"),
   },
+  {
+    path: "/svgAnimation",
+    name: "SvgAnimation",
+    component: () => import("@/views/svgAnimation"),
+  },
+  {
+    path: "/easelJS",
+    name: "easelJS",
+    component: () => import("@/views/easelJS"),
+  },
 ];
 
 const router = createRouter({
