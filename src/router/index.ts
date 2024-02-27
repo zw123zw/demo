@@ -31,6 +31,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "easelJS",
     component: () => import("@/views/easelJS"),
   },
+  {
+    path: "/soundJS",
+    name: "soundJS",
+    component: () => import("@/views/soundJS"),
+  },
 ];
 
 const router = createRouter({

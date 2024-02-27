@@ -71,9 +71,58 @@ const init = () => {
 
   // Bitmap
   var bitmap = new createjs.Bitmap(resolveSrc("hua.jpg"));
+  bitmap.cache(0, 0, 200, 200, 1);
+
+  // BitmapText
+  var bitmapText = new createjs.BitmapText("1122");
+
+  // BlurFilter
+  var shape = new createjs.Shape().set({ x: 100, y: 100 });
+  shape.graphics.beginFill("#ff0000").drawCircle(0, 0, 50);
+  var blurFilter = new createjs.BlurFilter(5, 5, 1);
+  shape.filters = [blurFilter];
+  var bounds = blurFilter.getBounds();
+  shape.cache(
+    -50 + bounds.x,
+    -50 + bounds.y,
+    100 + bounds.width,
+    100 + bounds.height
+  );
+
+  // ColorFilter
+  var shape = new createjs.Shape().set({ x: 100, y: 100 });
+  shape.graphics.beginFill("#ff0000").drawCircle(0, 0, 50);
+  shape.filters = [new createjs.ColorFilter(0, 0, 0, 1, 0, 0, 255, 0)];
+  shape.cache(-50, -50, 100, 100);
+
+  // ColorMatrix
+  var shape = new createjs.Shape().set({ x: 100, y: 100 });
+  shape.graphics.beginFill("#ff0000").drawCircle(0, 0, 50);
+  var matrix = new createjs.ColorMatrix().adjustHue(180).adjustSaturation(100);
+  shape.filters = [new createjs.ColorMatrixFilter(matrix)];
+  shape.cache(-50, -50, 100, 100);
+
+  // MovieClip
+  var mc = new createjs.MovieClip({ loop: -1, labels: { myLabel: 20 } });
+  var child1 = new createjs.Shape(
+    new createjs.Graphics().beginFill("#999999").drawCircle(30, 30, 30)
+  );
+  var child2 = new createjs.Shape(
+    new createjs.Graphics().beginFill("#5a9cfb").drawCircle(30, 30, 30)
+  );
+  mc.timeline.addTween(
+    createjs.Tween.get(child1).to({ x: 0 }).to({ x: 60 }, 50).to({ x: 0 }, 50)
+  );
+  mc.timeline.addTween(
+    createjs.Tween.get(child2).to({ x: 60 }).to({ x: 0 }, 50).to({ x: 60 }, 50)
+  );
+  mc.gotoAndPlay("start");
+
+  var text = new createjs.Text("Hello World", "20px Arial", "#000");
+  text.x = 100;
 
   // 绘制
-  stage.addChild(bitmap);
+  stage.addChild(text, mc);
   stage.update();
   stage.addEventListener("click", () => {
     console.log(111);
