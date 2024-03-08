@@ -36,6 +36,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "soundJS",
     component: () => import("@/views/soundJS"),
   },
+  {
+    path: "/preloadJS",
+    name: "preloadJS",
+    component: () => import("@/views/preloadJS"),
+  },
 ];
 
 const router = createRouter({
