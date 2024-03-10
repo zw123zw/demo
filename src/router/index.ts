@@ -41,6 +41,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "preloadJS",
     component: () => import("@/views/preloadJS"),
   },
+  {
+    path: "/threeJS",
+    name: "threeJS",
+    component: () => import("@/views/threeJS"),
+  },
 ];
 
 const router = createRouter({
